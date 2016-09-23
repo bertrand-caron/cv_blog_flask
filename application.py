@@ -8,6 +8,8 @@ ITEM_TEMPLATE_FOR = {
     'education': 'item.html',
     'skills': 'item_skill.html',
     'publications': 'item_publication.html',
+    'teaching': 'item.html',
+    'awards': 'item_award.html',
 }
 
 def data_for_section(section_name):
@@ -41,9 +43,10 @@ def home():
         'main.html',
         url_for=url_for,
         config=config,
-        education=rendered_section('education'),
-        skills=rendered_section('skills'),
-        publications=rendered_section('publications'),
+        sections = [
+            rendered_section(section_name)
+            for section_name in ['education', 'skills', 'publications', 'teaching', 'awards']
+        ],
     )
 
 @app.route('/cv')

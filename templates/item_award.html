@@ -4,10 +4,15 @@
       <h3>{{ item['title'] }}</h3>
     </div>
     <div class="line--right-content">
-      <b>{{ item['journal'] }} ({{ item['year'] }})</b>
+      <b>{{ item['year'] }}</b>
     </div>
   </div>
   <div class="second-line">
-    {{ item['authors'] }}
+    <div class="line--left-content">
+      {{ item['description'] | safe }}
+    </div>
+    <div class="line--right-content">
+      <i>{{ item['year'] }}</i>
+    </div>
   </div>
 </div>

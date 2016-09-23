@@ -14,8 +14,8 @@
   </div>
 
   <div class="container">
-    {{ education }}
-    {{ skills }}
-    {{ publications }}
+    {% for rendered_section in sections %}
+      {{ rendered_section }}
+    {% endfor %}
   </div>
 </body>
