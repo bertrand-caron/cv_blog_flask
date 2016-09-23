@@ -17,6 +17,7 @@ def main_layout(body):
         url_for=url_for,
         config=config,
         body = Markup(body),
+        footer = Markup(render_template('footer.html')),
     )
 
 @app.route('/')
