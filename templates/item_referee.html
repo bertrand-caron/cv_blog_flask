@@ -1,0 +1,23 @@
+<div class="section-item">
+  <div style="width:80%;float:left">
+    <h3 id="{{ item['name'].replace(' ', '')}} " style="margin-bottom:0;padding-top:10px;display:inline;color:#428bca">
+      {{ item['name'] }}
+    </h3>
+    <p style="margin-bottom:0">{{ item['position'] }}</p>
+    <div class="bottom-links no-print">
+      <ul>
+        <li>
+          <a href="mailto:{{ item['email'] }}">Contact {{ 'him' if item['gender'] == 'male' else 'her' }}</a>
+        </li>
+        <li>
+          <a href="{{ item['url'] }}">Browse Personnal page</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div align="right" clear="both" style="padding-top:0">
+    <img class="referee-img" height="62" src="{{ url_for('static', filename=item['img_url']) }}" style="border-radius:50%">
+  </div>
+  <div style="clear:both">
+  </div>
+</div>

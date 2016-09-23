@@ -1,7 +1,7 @@
 <div class="section-item">
   <div class="first-line">
     <div class="line--left-content">
-      <h3>{{ item['title'] }}</h3>
+      <h3>{{ item['title'] | safe }}</h3>
     </div>
     <div class="line--right-content">
       <b>{{ item['year'] }}</b>
