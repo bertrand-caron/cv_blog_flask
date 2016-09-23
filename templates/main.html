@@ -1,0 +1,19 @@
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class='nav navbar navbar-default' role="nagivation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+      <a class="navbar-brand" href="/">{{ config['title'] }}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    {{ education }}
+    {{ skills }}
+    {{ publications }}
+  </div>
+</body>
