@@ -1,5 +1,6 @@
 serve: static/style.css
 	make test
+	make data_dump.tar.gz
 	FLASK_APP=application.py flask run --host=0.0.0.0
 .PHONY: serve
 
