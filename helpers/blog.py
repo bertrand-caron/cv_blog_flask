@@ -10,9 +10,17 @@ def all_posts():
     ]
 
 def rendered_all_posts():
-    return ''.join(
-        [
-            Markup(render_template('blog_post.html', post=post))
-            for post in all_posts()
-        ]
+    from application import config
+
+    return render_template(
+        'blog_body.html',
+        posts=Markup(
+            ''.join(
+                [
+                    render_template('blog_post.html', post=post)
+                    for post in all_posts()
+                ]
+            ),
+        ),
+        config=config,
     )

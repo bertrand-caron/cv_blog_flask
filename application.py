@@ -45,7 +45,15 @@ def cv():
 @app.route('/blog')
 def blog():
     return main_layout(
-        body=rendered_all_posts(),
+        body=(
+            render_template(
+                'blog_author_side.html',
+                fa_icon=fa_icon,
+                config=config,
+            )
+            +
+            rendered_all_posts()
+        ),
     )
 
 @app.route('/contact')

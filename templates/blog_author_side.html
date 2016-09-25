@@ -1,37 +1,39 @@
-<div class="author-side">
+<div class="blog-author-side">
   <h2 id="#blog-title">
-    =link_to Blog::APP_CONFIG['blog']['title'], root_path
+    <a href='/blog'>{{ config['blog']['title'] }}</a>
   </h2>
-  =image_tag Blog::APP_CONFIG['author']['img'], id: 'author-img'
+
+  <img id="author-img" src="{{ url_for('static', filename='uploads/' + config['img_name']) }}" style='height: 150px; border-color: #428bca;'>
+
   <h2>
     {{ config['first_name'] + ' ' + config['last_name'] }}
   </h2>
-  <p class="justified">
+  <p class="text-justified">
     {{ config['biography'] }}
   </p>
-  <ul id="author-side-links">
+  <ul id="blog-author-side-links">
     <a>
       <li>
         {{ fa_icon('envelope-square') }}
-        = link_to 'Email', "mailto:#{Blog::APP_CONFIG['author']['email']}"
+        <a href="">Email</a>
       </li>
     </a>
     <a>
       <li>
         {{ fa_icon('github-square') }}
-        = link_to 'Github', "https://github.com/#{Blog::APP_CONFIG['author']['github']}"
+        <a href=''>Github</a>
       </li>
     </a>
     <a>
       <li>
         {{ fa_icon('stack-overflow') }}
-        = link_to 'Stack Overflow', "http://stackoverflow.com/users/#{Blog::APP_CONFIG['author']['stack-overflow']}"
+        <a href="">Stack Overflow</a>
       </li>
     </a>
     <a>
       <li>
         {{ fa_icon('industry') }}
-        = link_to 'CV', Blog::APP_CONFIG['author']['cv_link']
+        <a href="">CV</a>
       </li>
     </a>
   </ul>

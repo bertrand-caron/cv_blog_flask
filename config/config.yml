@@ -14,3 +14,6 @@ social:
     user_id: 1680996
     username: bertrand-caron
   email: 'bertrand@bcaron.me'
+blog:
+  title: 'Blog'
+  description: "A blog about shit n' stuff."
