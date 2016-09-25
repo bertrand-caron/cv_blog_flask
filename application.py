@@ -3,6 +3,7 @@ from yaml import load
 
 from helpers.sections import rendered_section, ALL_SECTIONS
 from helpers.blog import rendered_all_posts
+from helpers.email import obfuscate_email
 
 app = Flask(__name__)
 
@@ -43,4 +44,9 @@ def blog():
 
 @app.route('/contact')
 def contact():
-    return ''
+    return main_layout(
+        body=render_template(
+            'contact.html',
+            email=obfuscate_email(config['social']['email']),
+        ),
+    )
