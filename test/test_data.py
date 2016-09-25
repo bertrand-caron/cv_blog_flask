@@ -52,6 +52,14 @@ def recursive_assert_object_match(object_1, object_2, debug=False):
         return False
 
 def recursive_obfuscation(an_object):
+    def raise_unknown_type():
+        raise Exception(
+            'Unknown type: {0}(type={1})'.format(
+                an_object,
+                type(an_object),
+            ),
+        )
+
     if type(an_object) == list:
         return map(
             recursive_obfuscation,
@@ -73,16 +81,19 @@ def recursive_obfuscation(an_object):
         elif type(an_object) == float:
             return 0.0
         else:
-            raise Exception('Unknown type: {0}'.format(type(an_object)))
+            raise_unknown_type()
     else:
-        raise Exception('Unknown type: {0}'.format(type(an_object)))
+        raise_unknown_type()
 
 def check_example_yml_files():
     for yml_file in glob(join(DATA_DIR, '*.yml')) + glob(join(DATA_DIR, 'posts', '*.yml')) + [join(CONFIG_DIR, 'config.yml')]:
 
         yml_content = load(open(yml_file).read())
 
-        example_yml_content = recursive_obfuscation(yml_content)
+        try:
+            example_yml_content = recursive_obfuscation(yml_content)
+        except Exception as e:
+            raise Exception('ERROR in {0}: {1}'.format(yml_file, e))
 
         assert recursive_assert_object_match(yml_content, example_yml_content)
 
