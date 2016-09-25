@@ -4,6 +4,7 @@ from yaml import load
 from helpers.sections import rendered_section, ALL_SECTIONS
 from helpers.blog import rendered_all_posts
 from helpers.email import obfuscate_email
+from helpers.bootstrap import fa_icon
 
 app = Flask(__name__)
 
@@ -24,7 +25,12 @@ def main_layout(body):
 @app.route('/')
 def home():
     return main_layout(
-        render_template('cv_header.html', config=config, url_for=url_for)
+        render_template(
+            'cv_header.html',
+            config=config,
+            url_for=url_for,
+            fa_icon=fa_icon,
+        )
         +
         ''.join([
             rendered_section(section_name)

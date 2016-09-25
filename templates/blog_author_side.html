@@ -12,25 +12,25 @@
   <ul id="author-side-links">
     <a>
       <li>
-        = fa_icon "envelope-square"
+        {{ fa_icon('envelope-square') }}
         = link_to 'Email', "mailto:#{Blog::APP_CONFIG['author']['email']}"
       </li>
     </a>
     <a>
       <li>
-        = fa_icon "github-square"
+        {{ fa_icon('github-square') }}
         = link_to 'Github', "https://github.com/#{Blog::APP_CONFIG['author']['github']}"
       </li>
     </a>
     <a>
       <li>
-        = fa_icon "stack-overflow"
+        {{ fa_icon('stack-overflow') }}
         = link_to 'Stack Overflow', "http://stackoverflow.com/users/#{Blog::APP_CONFIG['author']['stack-overflow']}"
       </li>
     </a>
     <a>
       <li>
-        = fa_icon "industry"
+        {{ fa_icon('industry') }}
         = link_to 'CV', Blog::APP_CONFIG['author']['cv_link']
       </li>
     </a>
