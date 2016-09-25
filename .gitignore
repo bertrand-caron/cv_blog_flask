@@ -1,4 +1,4 @@
 *.pyc
 static/style.css
 *.yml
-data_dump.tar.gz
+data_dump*
