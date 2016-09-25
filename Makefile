@@ -11,5 +11,9 @@ test:
 .PHONY: test
 
 install:
-	for file in $$(find . -name '*.example'); do cp $${file} $${file/.example/}; done
+	for file in $$(find . -name '*.example'); do\
+	  if [[ ! -f $${file/.example/} ]] ; then\
+	    cp $${file} $${file/.example/};\
+	  fi;\
+	done
 .PHONY: install
