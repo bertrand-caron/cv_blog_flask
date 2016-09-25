@@ -1,9 +1,9 @@
 <div class="section-item">
   <div class="first-line--skill">
-  <i class="fa fa-git"></i>
+  <i class="fa {{ item['icon'] }}"></i>
   {{ item['title'] }}
   <span style="margin-left:20px;font-size:18px;height:30px">
-    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+    {{ rating_tag(item['rating']) | safe }}
   </span>
   </div>
   <p align="right" style="padding-top:7px;margin-bottom:8px">

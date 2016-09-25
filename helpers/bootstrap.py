@@ -9,3 +9,12 @@ def fa_icon(icon_name, style=''):
             style=style,
         ),
     )
+
+def rating_tag(rating):
+    assert rating in range(0, 6)
+
+    return ''.join(
+        [fa_icon('star')] * rating
+        +
+        [fa_icon('star-o')] * (5 - rating)
+    )
