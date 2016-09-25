@@ -17,3 +17,6 @@ install:
 	  fi;\
 	done
 .PHONY: install
+
+data_dump.tar.gz:
+	find . -name '*.yml' | tar -zcvf $@ -T -
