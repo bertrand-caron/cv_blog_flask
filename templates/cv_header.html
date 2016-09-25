@@ -1,0 +1,50 @@
+<div align="center" class="cv-name-header grey" itemscope="" itemtype="http://data-vocabulary.org/Person">
+  <img id="id-img" src="{{ url_for('static', filename='uploads/' + config['img_name']) }}">
+  <h1 style="margin-bottom:10px;font-size:450%">
+    <span itemprop="name" style="color:#f09819">{{ config['first_name'] }} {{ config['last_name'] }}</span>
+    <span class="grey"></span>
+    <span class="grey" id="demo" itemprop="title" style="white-space:pre">{{ config['occupation'] }}</span>
+  </h1>
+  <p>Brisbane, Australia</p>
+  <p></p>
+  <ul id="cv-social-icons">
+    <li class="cv-social-icon">
+      <i class="fa fa-mobile" style="font-size:26px"></i>
+      {{ config['mobile'] }}
+    </li>
+    <li class="cv-social-icon">
+      <i class="fa fa-book" style="font-size:22px;margin-right:5px"></i>
+      <a href="{{ config['url'] }}" itemprop="url">{{ config['url'] }}</a>
+    </li>
+    <li class="cv-social-icon">
+      <i class="fa fa-info-circle" style="font-size:19px"></i>
+      {{ config['age'] }} years old
+    </li>
+  </ul>
+
+  <div>
+    <ul id="cv-social-icons">
+      <li class="cv-social-icon">
+        <i class="fa fa-stack-overflow" style="font-size:19px"></i>
+          <a href="http://stackoverflow.com/users/{{ config['social']['stack_overflow']['id'] }}">{{ config['social']['stack_overflow']['username'] }}</a>
+      </li>
+      <li class="cv-social-icon">
+        <i class="fa fa-github" style="font-size:22px"></i>
+        <a href="https://github.com/bertrand-caron">{{ config['social']['github'] }}</a>
+      </li>
+      <li class="cv-social-icon">
+        <i class="fa fa-linkedin-square" style="font-size:22px"></i>
+        <a href="https://linkedin.com/in/bertrandcaron">{{ config['social']['linked_in'] }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div align="center" class="profile" style="margin:0 0 0 50px;padding:10px;border-radius:10px;display:inline-block">
+    <h2 style="display:inline-block;vertical-align:bottom;margin:0 5px;color:white">Profile</h2>
+    <p style="font-size:22px;line-height:30px;vertical-align:bottom;display:inline-block;margin-bottom:0;color:white">
+      {{ config['profile'] }}
+    </p>
+    <div style="clear:both">
+    </div>
+  </div>
+</div>

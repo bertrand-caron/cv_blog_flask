@@ -23,6 +23,8 @@ def main_layout(body):
 @app.route('/')
 def home():
     return main_layout(
+        render_template('cv_header.html', config=config, url_for=url_for)
+        +
         ''.join([
             rendered_section(section_name)
             for section_name in ALL_SECTIONS
@@ -38,3 +40,7 @@ def blog():
     return main_layout(
         body=rendered_all_posts(),
     )
+
+@app.route('/contact')
+def contact():
+    return ''
