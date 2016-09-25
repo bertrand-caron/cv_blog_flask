@@ -9,3 +9,7 @@ static/style.css: static/style.css.scss
 test:
 	python test/test_data.py
 .PHONY: test
+
+install:
+	for file in $$(find . -name '*.example'); do cp $${file} $${file/.example/}; done
+.PHONY: install
