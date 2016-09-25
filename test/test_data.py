@@ -51,6 +51,11 @@ def recursive_assert_object_match(object_1, object_2, debug=False):
 
         return False
 
+DO_NOT_OBFUSCATE_KEYS = [
+    'icon',
+    'rating',
+]
+
 def recursive_obfuscation(an_object):
     def raise_unknown_type():
         raise Exception(
@@ -63,12 +68,15 @@ def recursive_obfuscation(an_object):
     if type(an_object) == list:
         return map(
             recursive_obfuscation,
-            an_object,
+            [an_object[0]], # Keep only the first object of each list, for concision stake
         )
     elif type(an_object) == dict:
         return dict(
             [
-                (key, recursive_obfuscation(value))
+                (
+                    key,
+                    value if key in DO_NOT_OBFUSCATE_KEYS else recursive_obfuscation(value),
+                )
                 for (key, value)
                 in an_object.items()
             ],
