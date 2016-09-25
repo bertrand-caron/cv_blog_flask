@@ -1,6 +1,6 @@
 <div class="section-item">
   <div class="first-line--skill">
-  <i class="fa {{ item['icon'] }}"></i>
+  {{ icon_tag(item['icon']) | safe }}
   {{ item['title'] }}
   <span style="margin-left:20px;font-size:18px;height:30px">
     {{ rating_tag(item['rating']) | safe }}

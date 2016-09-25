@@ -9,15 +9,15 @@
   <p></p>
   <ul id="cv-social-icons">
     <li class="cv-social-icon">
-      {{ fa_icon('mobile', style='font-size:26px') }}
+      {{ icon_tag('fa-mobile', style='font-size:26px') }}
       {{ config['mobile'] }}
     </li>
     <li class="cv-social-icon">
-      {{ fa_icon('book', style='font-size:22px;margin-right:5px') }}
+      {{ icon_tag('fa-book', style='font-size:22px;margin-right:5px') }}
       <a href="{{ config['url'] }}" itemprop="url">{{ config['url'] }}</a>
     </li>
     <li class="cv-social-icon">
-      {{ fa_icon('info-circle', style='font-size:19px') }}
+      {{ icon_tag('fa-info-circle', style='font-size:19px') }}
       {{ config['age'] }} years old
     </li>
   </ul>
@@ -25,15 +25,15 @@
   <div>
     <ul id="cv-social-icons">
       <li class="cv-social-icon">
-        {{ fa_icon('stack-overflow', style='font-size:19px') }}
+        {{ icon_tag('fa-stack-overflow', style='font-size:19px') }}
           <a href="http://stackoverflow.com/users/{{ config['social']['stack_overflow']['user_id'] }}">{{ config['social']['stack_overflow']['username'] }}</a>
       </li>
       <li class="cv-social-icon">
-        {{ fa_icon('github', style='font-size:22px') }}
+        {{ icon_tag('fa-github', style='font-size:22px') }}
         <a href="https://github.com/{{ config['social']['github'] }}">{{ config['social']['github'] }}</a>
       </li>
       <li class="cv-social-icon">
-        {{ fa_icon('linkedin-square', style='font-size:22px') }}
+        {{ icon_tag('fa-linkedin-square', style='font-size:22px') }}
         <a href="https://linkedin.com/in/{{ config['social']['linked_in'] }}">{{ config['social']['linked_in'] }}</a>
       </li>
     </ul>

@@ -4,7 +4,7 @@ from yaml import load
 from helpers.sections import rendered_section, ALL_SECTIONS
 from helpers.blog import rendered_all_posts
 from helpers.email import obfuscate_email
-from helpers.bootstrap import fa_icon
+from helpers.bootstrap import icon_tag
 
 app = Flask(__name__)
 
@@ -29,7 +29,7 @@ def home():
             'cv_header.html',
             config=config,
             url_for=url_for,
-            fa_icon=fa_icon,
+            icon_tag=icon_tag,
         )
         +
         ''.join([
@@ -48,7 +48,7 @@ def blog():
         body=(
             render_template(
                 'blog_author_side.html',
-                fa_icon=fa_icon,
+                icon_tag=icon_tag,
                 config=config,
             )
             +

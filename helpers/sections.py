@@ -1,6 +1,6 @@
 from flask import Markup, render_template, url_for
 from yaml import load
-from helpers.bootstrap import rating_tag
+from helpers.bootstrap import rating_tag, icon_tag
 
 ITEM_TEMPLATE_FOR = {
     'education': 'item.html',
@@ -23,6 +23,7 @@ def rendered_data_for_section(section_name):
         ITEM_TEMPLATE_FOR[section_name],
         item=item,
         rating_tag=rating_tag,
+        icon_tag=icon_tag,
     )
 
     return Markup(
