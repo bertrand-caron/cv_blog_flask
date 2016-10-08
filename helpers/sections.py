@@ -25,6 +25,7 @@ def rendered_data_for_section(section_name):
         item=item,
         rating_tag=rating_tag,
         icon_tag=icon_tag,
+        img_url_for=img_url_for,
     )
 
     return Markup(
@@ -42,3 +43,11 @@ def rendered_section(section_name):
             section_content=rendered_data_for_section(section_name),
         ),
     )
+
+def img_url_for(img_url):
+    if img_url.startswith('http'):
+        return img_url
+    elif img_url == '':
+        return ''
+    else:
+        return url_for('static', filename=img_url)
