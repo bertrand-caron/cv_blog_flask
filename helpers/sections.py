@@ -9,9 +9,10 @@ ITEM_TEMPLATE_FOR = {
     'teaching': 'item.html',
     'awards': 'item_award.html',
     'referees': 'item_referee.html',
+    'experience': 'item_experience.html',
 }
 
-ALL_SECTIONS = ['education', 'skills', 'publications', 'teaching', 'awards', 'referees']
+ALL_SECTIONS = ['experience', 'education', 'skills', 'publications', 'teaching', 'awards', 'referees']
 
 assert set(ALL_SECTIONS) == set(ITEM_TEMPLATE_FOR), 'ERROR: Missing item templates or sections.'
 
