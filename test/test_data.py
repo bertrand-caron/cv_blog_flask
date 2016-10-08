@@ -9,10 +9,12 @@ CONFIG_DIR = join(dirname(dirname(__file__)), 'config')
 def example_yml_file(yml_file):
     return yml_file + '.example'
 
-def recursive_assert_object_match(object_1, object_2, debug=False):
+DEBUG = False
+
+def recursive_assert_object_match(object_1, object_2, debug=DEBUG):
     if debug:
         print
-        print 'OBJECTS: {0}(type={1}) {2}(type={3})'.format(object_1, type(object_1), object_2, type(object_2))
+        print 'OBJECTS:\n- {0} (type={1})\n- {2} (type={3})'.format(object_1, type(object_1), object_2, type(object_2))
 
     if type(object_1) == type(object_2):
         if type(object_1) == type(object_2) == dict:
@@ -46,10 +48,7 @@ def recursive_assert_object_match(object_1, object_2, debug=False):
         else:
             return True
     else:
-        if debug:
-            print 'OBJECT MISMATCH: {0} != {1}'.format(type(object_1), type(object_2))
-
-        return False
+        raise Exception('OBJECT MISMATCH: {0} (object={2}) != {1} (object={3})'.format(type(object_1), type(object_2), object_1, object_2))
 
 DO_NOT_OBFUSCATE_KEYS = [
     'icon',
@@ -103,7 +102,7 @@ def check_example_yml_files():
         except Exception as e:
             raise Exception('ERROR in {0}: {1}'.format(yml_file, e))
 
-        assert recursive_assert_object_match(yml_content, example_yml_content)
+        assert recursive_assert_object_match(yml_content, example_yml_content, debug=True)
 
         with open(example_yml_file(yml_file), 'w') as fh:
             fh.write(
@@ -121,8 +120,8 @@ def check_example_yml_files():
 
 
 if __name__ == '__main__':
-    assert recursive_assert_object_match({'a': 1}, {'a': 'bob'}) == False
-    assert recursive_assert_object_match({'a': 1}, {'b': 'bob'}) == False
-    assert recursive_assert_object_match(['a'], [1]) == False
+    #assert recursive_assert_object_match({'a': 1}, {'a': 'bob'}) == False
+    #assert recursive_assert_object_match({'a': 1}, {'b': 'bob'}) == False
+    #assert recursive_assert_object_match(['a'], [1]) == False
 
     check_example_yml_files()
