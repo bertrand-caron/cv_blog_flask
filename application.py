@@ -6,7 +6,7 @@ from helpers.blog import rendered_all_posts
 from helpers.email import obfuscate_email
 from helpers.bootstrap import icon_tag
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 try:
     config = load(open('config/config.yml').read())
@@ -22,7 +22,7 @@ def main_layout(body):
         footer = Markup(render_template('footer.html')),
     )
 
-@app.route('/')
+@application.route('/')
 def home():
     return main_layout(
         render_template(
@@ -38,11 +38,11 @@ def home():
         ]),
     )
 
-@app.route('/cv')
+@application.route('/cv')
 def cv():
     return ''
 
-@app.route('/blog')
+@application.route('/blog')
 def blog():
     return main_layout(
         body=(
@@ -56,7 +56,7 @@ def blog():
         ),
     )
 
-@app.route('/contact')
+@application.route('/contact')
 def contact():
     return main_layout(
         body=render_template(
@@ -64,3 +64,6 @@ def contact():
             email=obfuscate_email(config['social']['email']),
         ),
     )
+
+if __name__ == "__main__":
+    application.run()

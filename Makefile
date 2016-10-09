@@ -25,3 +25,7 @@ data_dump.tar.gz:
 	tar -zcvf $@ -I file_to_archive.dat
 	rm file_to_archive.dat
 .PHONY: data_dump.tar.gz
+
+uwsgi:
+	uwsgi --ini uwsgi.ini	
+.PHONY: uwsgi
