@@ -91,6 +91,8 @@ def recursive_obfuscation(an_object):
             return 0.0
         else:
             raise_unknown_type()
+    elif type(an_object) == bool:
+        return an_object
     else:
         raise_unknown_type()
 
