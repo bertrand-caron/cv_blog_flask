@@ -1,8 +1,8 @@
-from sass import compile_string
 from sys import argv
+from sass import compile_string
 
-def compile_scss_file(filename):
-    assert '.scss' in filename
+def compile_scss_file(filename: str) -> None:
+    assert '.scss' in filename, filename
 
     with open(filename.replace('.scss', ''), 'w') as fh:
         fh.write(
