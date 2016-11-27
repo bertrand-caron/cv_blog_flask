@@ -1,5 +1,8 @@
-- degree: Loreum Ipsum
-  description: Loreum Ipsum
-  institution: Loreum Ipsum
-  location: Loreum Ipsum
-  year: Loreum Ipsum
+- degree: Lorem ipsum dolor sit amet,
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet,
+    consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+    magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+  institution: Lorem ipsum dolor sit
+  location: Lorem ipsum
+  year: Lorem ipsum dolor sit
