@@ -55,6 +55,8 @@ DO_NOT_OBFUSCATE_KEYS = [
     'rating',
 ]
 
+LOREUM_IPSUM = ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua' * 10).split()
+
 def recursive_obfuscation(an_object):
     def raise_unknown_type():
         raise Exception(
@@ -82,7 +84,7 @@ def recursive_obfuscation(an_object):
         )
     elif type(an_object) in (str, unicode, int, float):
         if type(an_object) in (str, unicode):
-            return 'Loreum Ipsum'
+            return ' '.join([loreum_ipsum_word for (word, loreum_ipsum_word) in zip(an_object.split(), LOREUM_IPSUM)])
         elif type(an_object) == int:
             return 0
         elif type(an_object) == float:
