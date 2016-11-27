@@ -21,7 +21,10 @@ ALL_SECTIONS = ['experience', 'education', 'skills', 'publications', 'teaching',
 assert set(ALL_SECTIONS) == set(ITEM_TEMPLATE_FOR), 'ERROR: Missing item templates or sections: {0}'.format(set(ALL_SECTIONS) ^ set(ITEM_TEMPLATE_FOR))
 
 def should_include_item(item: Item) -> bool:
-    return True
+    if isinstance(item, dict):
+        return ('publish' not in item) or ('publish' in item and bool(item['publish']))
+    else:
+        return True
 
 def data_for_section(section_name: str) -> List[Item]:
     items = load(open('data/{0}.yml'.format(section_name)).read())
