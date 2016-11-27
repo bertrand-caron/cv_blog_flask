@@ -13,8 +13,8 @@ DEBUG = False
 
 def recursive_assert_object_match(object_1, object_2, debug=DEBUG):
     if debug:
-        print
-        print 'OBJECTS:\n- {0} (type={1})\n- {2} (type={3})'.format(object_1, type(object_1), object_2, type(object_2))
+        print()
+        print('OBJECTS:\n- {0} (type={1})\n- {2} (type={3})'.format(object_1, type(object_1), object_2, type(object_2)))
 
     if type(object_1) == type(object_2):
         if type(object_1) == type(object_2) == dict:
@@ -22,14 +22,14 @@ def recursive_assert_object_match(object_1, object_2, debug=DEBUG):
             def check_same_keys():
                 if debug:
                     if set(object_1.keys()) != set(object_2.keys()):
-                        print 'ERROR: MISSING KEYS {0}'.format(set(object_1.keys()) ^ set(object_2.keys()))
+                        print('ERROR: MISSING KEYS {0}'.format(set(object_1.keys()) ^ set(object_2.keys())))
 
                 return set(object_1.keys()) == set(object_2.keys())
 
             def check_same_value_for_key(key):
                 if debug:
                     if not recursive_assert_object_match(object_1[key], object_2[key]):
-                        print 'ERROR: DIFFERENT VALUE FOR KEY {0}'.format(key)
+                        print('ERROR: DIFFERENT VALUE FOR KEY {0}'.format(key))
                 return recursive_assert_object_match(object_1[key], object_2[key])
 
             return (
@@ -67,10 +67,10 @@ def recursive_obfuscation(an_object):
         )
 
     if type(an_object) == list:
-        return map(
+        return list(map(
             recursive_obfuscation,
-            [an_object[0]], # Keep only the first object of each list, for concision stake
-        )
+            [an_object[0]], # Keep only the first object of each list, for the sake of concision
+        ))
     elif type(an_object) == dict:
         return dict(
             [
@@ -79,11 +79,11 @@ def recursive_obfuscation(an_object):
                     value if key in DO_NOT_OBFUSCATE_KEYS else recursive_obfuscation(value),
                 )
                 for (key, value)
-                in an_object.items()
+                in list(an_object.items())
             ],
         )
-    elif type(an_object) in (str, unicode, int, float):
-        if type(an_object) in (str, unicode):
+    elif type(an_object) in (str, int, float):
+        if type(an_object) == str:
             return ' '.join([loreum_ipsum_word for (word, loreum_ipsum_word) in zip(an_object.split(), LOREUM_IPSUM)])
         elif type(an_object) == int:
             return 0

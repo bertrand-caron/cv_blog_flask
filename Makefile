@@ -1,5 +1,7 @@
 SHELL=/bin/bash
 
+PYTHON_EXEC = python3
+
 serve: static/style.css install
 	make test
 	make data_dump.tar.gz
@@ -7,10 +9,10 @@ serve: static/style.css install
 .PHONY: serve
 
 static/style.css: static/style.css.scss
-	python compile_scss.py $<
+	$(PYTHON_EXEC) compile_scss.py $<
 
 test:
-	python test/test_data.py
+	$(PYTHON_EXEC) test/test_data.py
 .PHONY: test
 
 install:
