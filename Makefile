@@ -1,3 +1,5 @@
+SHELL=/bin/bash
+
 serve: static/style.css install
 	make test
 	make data_dump.tar.gz
@@ -22,7 +24,7 @@ install:
 data_dump.tar.gz:
 	find . -name '*.yml' > file_to_archive.dat
 	find 'static/uploads' -name '*.*' >> file_to_archive.dat
-	tar -zcvf $@ -I file_to_archive.dat
+	tar --create --gzip --verbose --file $@ -T file_to_archive.dat
 	rm file_to_archive.dat
 .PHONY: data_dump.tar.gz
 
