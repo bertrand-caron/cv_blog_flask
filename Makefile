@@ -33,3 +33,11 @@ data_dump.tar.gz:
 uwsgi:
 	uwsgi --ini uwsgi.ini	
 .PHONY: uwsgi
+
+errors:
+	pylint -E *.py
+.PHONY: errors
+
+pip:
+	pip3 install sass flask pyyaml
+.PHONY: pip
