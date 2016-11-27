@@ -2,26 +2,24 @@ SHELL=/bin/bash
 
 PYTHON_EXEC = python3
 
-serve: static/style.css install
-	make test
-	make data_dump.tar.gz
+serve: static/style.css copy_missing_example_files data_dump.tar.gz
 	FLASK_APP=application.py flask run --host=0.0.0.0
 .PHONY: serve
 
 static/style.css: static/style.css.scss
 	$(PYTHON_EXEC) compile_scss.py $<
 
-test:
+obfuscted_test_data:
 	$(PYTHON_EXEC) test/test_data.py
-.PHONY: test
+.PHONY: obfuscted_test_data
 
-install:
+copy_missing_example_files:
 	for file in $$(find . -name '*.example'); do\
 	  if [[ ! -f $${file/.example/} ]] ; then\
 	    cp $${file} $${file/.example/};\
 	  fi;\
 	done
-.PHONY: install
+.PHONY: copy_missing_example_files
 
 data_dump.tar.gz:
 	find . -name '*.yml' > file_to_archive.dat
