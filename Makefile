@@ -2,8 +2,14 @@ SHELL=/bin/bash
 
 PYTHON_EXEC = python3
 
+FLASK_EXEC = /home/bcaron/.local/bin/flask
+
+UWSGI_EXEC = /home/bcaron/.local/bin/uwsgi
+
+PIP_EXEC = pip3
+
 serve: static/style.css copy_missing_example_files data_dump.tar.gz
-	FLASK_APP=application.py flask run --host=0.0.0.0
+	FLASK_APP=application.py $(FLASK_EXEC) run --host=localhost --port 8001
 .PHONY: serve
 
 static/style.css: static/style.css.scss
@@ -29,7 +35,7 @@ data_dump.tar.gz:
 .PHONY: data_dump.tar.gz
 
 uwsgi:
-	uwsgi --ini uwsgi.ini	
+	$(UWSGI_EXEC) --ini uwsgi.ini
 .PHONY: uwsgi
 
 errors:
@@ -37,5 +43,5 @@ errors:
 .PHONY: errors
 
 pip:
-	pip3 install sass flask pyyaml
+	$(PIP_EXEC) install sass flask pyyaml uwsgi
 .PHONY: pip
