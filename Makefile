@@ -9,7 +9,7 @@ UWSGI_EXEC = /home/bcaron/.local/bin/uwsgi
 PIP_EXEC = pip3
 
 serve: static/style.css copy_missing_example_files data_dump.tar.gz
-	FLASK_APP=application.py $(FLASK_EXEC) run --host=localhost --port 8001
+	FLASK_APP=application.py $(FLASK_EXEC) run --host=0.0.0.0 --port 8001
 .PHONY: serve
 
 static/style.css: static/style.css.scss
@@ -45,3 +45,7 @@ errors:
 pip:
 	$(PIP_EXEC) install sass flask pyyaml uwsgi
 .PHONY: pip
+
+certs:
+	letsencrypt certonly --webroot -w /home/bcaron/cv_flask -d bcaron.me
+.PHONY: certs
