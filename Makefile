@@ -2,7 +2,7 @@ SHELL=/bin/bash
 
 PYTHON_EXEC = python3
 
-UWSGI_EXEC = /home/bcaron/.local/bin/uwsgi
+UWSGI_EXEC = /usr/local/bin/uwsgi
 
 PIP_EXEC = pip3
 
@@ -34,10 +34,13 @@ data_dump.tar.gz:
 	find 'static/uploads' -name '*.*' >> file_to_archive.dat
 	tar --create --gzip --verbose --file $@ -T file_to_archive.dat
 	rm file_to_archive.dat
-.PHONY: data_dump.tar.gz
+
+import_data: data_dump.tar.gz
+	mv $< data.tar.gz && tar -xzf $<
+.PHONY: import_data
 
 uwsgi:
-	$(UWSGI_EXEC) --ini uwsgi.ini
+	sudo $(UWSGI_EXEC) --ini uwsgi.ini
 .PHONY: uwsgi
 
 errors:
