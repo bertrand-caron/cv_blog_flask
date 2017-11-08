@@ -2,14 +2,16 @@ SHELL=/bin/bash
 
 PYTHON_EXEC = python3
 
-FLASK_EXEC = /home/bcaron/.local/bin/flask
-
 UWSGI_EXEC = /home/bcaron/.local/bin/uwsgi
 
 PIP_EXEC = pip3
 
+PYTHONPATH_VAR = PYTHONPATH=$(PYTHONPATH):$(shell pwd)
+
+FLASK_EXEC = $(PYTHONPATH_VAR) /usr/local/bin/flask
+
 serve: static/style.css copy_missing_example_files data_dump.tar.gz
-	FLASK_APP=application.py $(FLASK_EXEC) run --host=0.0.0.0 --port 8001
+	sudo FLASK_APP=application.py $(FLASK_EXEC) run --host=0.0.0.0 --port 80
 .PHONY: serve
 
 static/style.css: static/style.css.scss
