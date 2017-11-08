@@ -1,3 +1,4 @@
+from markdown import markdown
 from flask import Flask, render_template, url_for, Markup
 from yaml import load
 from typing import List, Any
@@ -25,7 +26,7 @@ def rendered_all_posts() -> Any:
         posts=Markup(
             ''.join(
                 [
-                    render_template('blog_post.html', post=post)
+                    render_template('blog_post.html', post=post, markdown=markdown)
                     for post in all_posts()
                 ]
             ),

@@ -1,6 +1,6 @@
 <div>
   <h2>{{ post['title'] }}</h2>
   <p>
-    {{ post['content'] }}
+    {{ markdown(post['content']) | safe }}
   </p>
 </div>

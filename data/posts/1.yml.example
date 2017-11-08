@@ -1,2 +1,6 @@
-content: Lorem ipsum
+content: |
+  ## Subtitle
+
+      a = 42
+      b = 2
 title: Lorem ipsum
