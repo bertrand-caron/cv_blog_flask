@@ -8,10 +8,12 @@
   <p>Brisbane, Australia</p>
   <p></p>
   <ul id="cv-social-icons">
+    {% if config['mobile'] %}
     <li class="cv-social-icon">
       {{ icon_tag('fa-mobile', style='font-size:26px') }}
       {{ config['mobile'] }}
     </li>
+    {% endif %}
     <li class="cv-social-icon">
       {{ icon_tag('fa-book', style='font-size:22px;margin-right:5px') }}
       <a href="{{ config['url'] }}" itemprop="url">{{ config['url'] }}</a>
