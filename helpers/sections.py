@@ -58,7 +58,7 @@ def rendered_data_for_section(section_name: str) -> Markup:
     if section_name in ['skills']:
         return Markup(
             str_merge(
-                '<h3 class="subsection-title">{subsection_name}</h3>'.format(subsection_name=subsection_name.replace('_', ' ').title()) + str_merge(
+                '<h3 class="subsection-title">{subsection_name}</h3>'.format(subsection_name=subsection_name) + str_merge(
                     render_item(item)
                     for item in items
                 )
