@@ -11,7 +11,7 @@ body {
   min-height: 500px;
 }
 
-h1, h2 {
+h1, h2, h3 {
 	font-weight:300;
 }
 h1 {
@@ -53,6 +53,11 @@ div {
 	span {
 		font-size:30px;
 	}
+}
+
+.subsection-title {
+	color:#F09819;
+	font-size:25px;
 }
 
 .section-item, .section-comment {
@@ -242,4 +247,8 @@ div.blog-author-side {
 
 #blog-footer {
   margin-top: 100px;
+}
+
+.span-supervisor {
+  font-size: 50%;
 }

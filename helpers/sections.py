@@ -1,8 +1,9 @@
 from flask import Markup, render_template, url_for
 from yaml import load
-from typing import Any, List, Dict, Union
+from typing import Any, List, Dict, Union, Tuple
 
 from helpers.bootstrap import rating_tag, icon_tag
+from helpers.iterables import str_merge
 
 Item = Dict[Any, Any]
 
@@ -27,11 +28,22 @@ def should_include_item(item: Item) -> bool:
         return True
 
 def data_for_section(section_name: str) -> List[Item]:
+    assert section_name is not 'Skills', section_name
+
     items = load(open('data/{0}.yml'.format(section_name)).read())
     return [
         item
         for item in items
         if should_include_item(item)
+    ]
+
+def data_for_skills_section() -> List[Tuple[str, List[Item]]]:
+    section_name = 'skills'
+    data = load(open('data/{0}.yml'.format(section_name)).read())
+
+    return [
+        (subsection['type'], subsection['skills'])
+        for subsection in data
     ]
 
 def rendered_data_for_section(section_name: str) -> Markup:
@@ -43,12 +55,23 @@ def rendered_data_for_section(section_name: str) -> Markup:
         img_url_for=img_url_for,
     )
 
-    return Markup(
-        ''.join([
-            render_item(item)
-            for item in data_for_section(section_name)
-        ])
-    )
+    if section_name in ['skills']:
+        return Markup(
+            str_merge(
+                '<h3 class="subsection-title">{subsection_name}</h3>'.format(subsection_name=subsection_name.replace('_', ' ').title()) + str_merge(
+                    render_item(item)
+                    for item in items
+                )
+                for (subsection_name, items) in data_for_skills_section()
+            )
+        )
+    else:
+        return Markup(
+            str_merge(
+                render_item(item)
+                for item in data_for_section(section_name)
+            )
+        )
 
 def rendered_section(section_name: str) -> Markup:
     return Markup(

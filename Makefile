@@ -10,6 +10,10 @@ PYTHONPATH_VAR = PYTHONPATH=$(PYTHONPATH):$(shell pwd)
 
 FLASK_EXEC = $(PYTHONPATH_VAR) /usr/local/bin/flask
 
+refresh: static/style.css
+	sudo service cv_flask restart
+.PHONY: refresh
+
 serve: static/style.css copy_missing_example_files data_dump.tar.gz
 	sudo FLASK_APP=application.py $(FLASK_EXEC) run --host=0.0.0.0 --port 80
 .PHONY: serve
