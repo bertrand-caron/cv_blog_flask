@@ -1,10 +1,11 @@
-from flask import Flask, render_template, url_for, Markup
+from flask import Flask, render_template, url_for, Markup, request
 from yaml import load
 
 from helpers.sections import rendered_section, ALL_SECTIONS
 from helpers.blog import rendered_all_posts
 from helpers.email import obfuscate_email
 from helpers.bootstrap import icon_tag
+from helpers.db import log_access
 
 application = Flask(__name__)
 
@@ -13,7 +14,8 @@ try:
 except:
     raise Exception('ERROR: Missing config/config.yml file.')
 
-def main_layout(body):
+def main_layout(body: str) -> str:
+    log_access(request)
     return render_template(
         'main.html',
         url_for=url_for,
@@ -23,7 +25,7 @@ def main_layout(body):
     )
 
 @application.route('/')
-def home():
+def home() -> str:
     return main_layout(
         render_template(
             'cv_header.html',
@@ -39,11 +41,11 @@ def home():
     )
 
 @application.route('/cv')
-def cv():
+def cv() -> str:
     return ''
 
 @application.route('/blog')
-def blog():
+def blog() -> str:
     return main_layout(
         body=(
             render_template(
@@ -57,7 +59,7 @@ def blog():
     )
 
 @application.route('/contact')
-def contact():
+def contact() -> str:
     return main_layout(
         body=render_template(
             'contact.html',

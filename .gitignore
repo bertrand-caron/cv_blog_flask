@@ -2,3 +2,4 @@
 static/style.css
 *.yml
 data_dump*
+*.db
