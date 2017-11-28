@@ -13,7 +13,14 @@ def log_access(request: Any) -> None:
 
 if __name__ == '__main__':
     try:
+        from geoip import geolite2
+        def get_geo(ip_address: str) -> Any:
+            return geolite2.lookup(ip_address)
+    except:
+        get_geo = lambda *args, **kwargs: None
+
+    try:
         CURSOR.execute('SELECT * FROM logs')
-        print(CURSOR.fetchall())
+        print('\n'.join(['{0},{1}'.format(datetime, get_geo(ip)) for (datetime, ip) in CURSOR.fetchall()]))
     except OperationalError:
         create_tables()
