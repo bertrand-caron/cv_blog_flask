@@ -4,6 +4,7 @@ from typing import Any, List, Dict, Union, Tuple
 
 from helpers.bootstrap import rating_tag, icon_tag
 from helpers.iterables import str_merge
+from helpers.config import CONFIG
 
 Item = Dict[Any, Any]
 
@@ -53,6 +54,10 @@ def rendered_data_for_section(section_name: str) -> Markup:
         rating_tag=rating_tag,
         icon_tag=icon_tag,
         img_url_for=img_url_for,
+        underline_main_author=lambda s: s.replace(
+            CONFIG['citation_name'],
+            '<span style="text-decoration: underline">' + CONFIG['citation_name'] + '</span>',
+        ),
     )
 
     if section_name in ['skills']:

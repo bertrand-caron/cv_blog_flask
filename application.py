@@ -1,25 +1,20 @@
 from flask import Flask, render_template, url_for, Markup, request
-from yaml import load
 
 from helpers.sections import rendered_section, ALL_SECTIONS
 from helpers.blog import rendered_all_posts
 from helpers.email import obfuscate_email
 from helpers.bootstrap import icon_tag
 from helpers.db import log_access
+from helpers.config import CONFIG
 
 application = Flask(__name__)
-
-try:
-    config = load(open('config/config.yml').read())
-except:
-    raise Exception('ERROR: Missing config/config.yml file.')
 
 def main_layout(body: str) -> str:
     log_access(request)
     return render_template(
         'main.html',
         url_for=url_for,
-        config=config,
+        config=CONFIG,
         body = Markup(body),
         footer = Markup(render_template('footer.html')),
     )
@@ -29,7 +24,7 @@ def home() -> str:
     return main_layout(
         render_template(
             'cv_header.html',
-            config=config,
+            config=CONFIG,
             url_for=url_for,
             icon_tag=icon_tag,
         )
@@ -51,7 +46,7 @@ def blog() -> str:
             render_template(
                 'blog_author_side.html',
                 icon_tag=icon_tag,
-                config=config,
+                config=CONFIG,
             )
             +
             rendered_all_posts()
@@ -63,7 +58,7 @@ def contact() -> str:
     return main_layout(
         body=render_template(
             'contact.html',
-            email=obfuscate_email(config['social']['email']),
+            email=obfuscate_email(CONFIG['social']['email']),
         ),
     )
 

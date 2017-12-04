@@ -5,7 +5,7 @@
     <span class="grey"></span>
     <span class="grey" id="demo" itemprop="title" style="white-space:pre">{{ config['occupation'] }}</span>
   </h1>
-  <p>Brisbane, Australia</p>
+  <p>{{ icon_tag('fa-map-marker', style='font-size:26px')}} {{config['address']}}</p>
   <p></p>
   <ul id="cv-social-icons">
     {% if config['mobile'] %}

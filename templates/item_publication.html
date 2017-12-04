@@ -8,6 +8,6 @@
     </div>
   </div>
   <div class="second-line">
-    {{ item['authors'] }}
+    {{ underline_main_author(item['authors']) | safe }}
   </div>
 </div>

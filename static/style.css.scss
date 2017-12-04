@@ -179,6 +179,7 @@ div {
 }
 
 #cv-social-icons {
+	margin-bottom: 0;
 	li:nth-child(n+2):before {
 		content: "•";
 		margin: 0px 5px;
