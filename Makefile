@@ -51,8 +51,8 @@ errors:
 	pylint -E *.py
 .PHONY: errors
 
-pip:
-	$(PIP_EXEC) install sass flask pyyaml uwsgi
+pip: requirements.txt 
+	$(PIP_EXEC) install -r $<
 .PHONY: pip
 
 certs:

@@ -3,3 +3,5 @@ sass
 Markdown
 python-geoip-python3
 Jinja2
+pyyaml
+uwsgi
