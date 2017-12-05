@@ -1,2 +1,5 @@
-flask
+Flask
 sass
+Markdown
+python-geoip-python3
+Jinja2
