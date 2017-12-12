@@ -59,10 +59,7 @@ certs:
 	letsencrypt certonly --webroot -w /home/bcaron/cv_flask -d bcaron.me
 .PHONY: certs
 
-coverage: config/config.yml
+coverage: copy_missing_example_files
 	coverage run test.py
 	coverage html
 .PHONY: coverage
-
-config/config.yml:
-	cp -n config/config.yml.example $@
