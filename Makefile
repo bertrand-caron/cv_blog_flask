@@ -58,3 +58,8 @@ pip: requirements.txt
 certs:
 	letsencrypt certonly --webroot -w /home/bcaron/cv_flask -d bcaron.me
 .PHONY: certs
+
+coverage:
+	coverage run test.py
+	coverage html
+.PHONY: coverage

@@ -6,20 +6,24 @@ from glob import glob
 
 from helpers.sections import Item, should_include_item
 
+def read_post(post_filepath: str) -> str:
+    with open(post_filepath) as fh:
+        return load(fh.read())
+
 def all_posts() -> List[Item]:
     post_files = glob('data/posts/*.yml')
     return list(
         filter(
             should_include_item,
             [
-                load(open(post_file).read())
+                read_post(post_file)
                 for post_file in post_files
             ],
         ),
     )
 
 def rendered_all_posts() -> Any:
-    from application import config
+    from application import CONFIG
 
     return render_template(
         'blog_body.html',
@@ -31,5 +35,5 @@ def rendered_all_posts() -> Any:
                 ]
             ),
         ),
-        config=config,
+        config=CONFIG,
     )

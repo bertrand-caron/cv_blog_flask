@@ -8,8 +8,10 @@ def create_tables() -> None:
     CURSOR.execute('CREATE TABLE logs (datetime DATETIME, ip VARCHAR(39))')
 
 def log_access(request: Any) -> None:
-    print(request.environ)
-    CURSOR.execute('INSERT INTO logs (datetime, ip) VALUES (DATETIME("now"), ?)', (request.environ['HTTP_X_REAL_IP'],))
+    try:
+        CURSOR.execute('INSERT INTO logs (datetime, ip) VALUES (DATETIME("now"), ?)', (request.environ['HTTP_X_REAL_IP'],))
+    except:
+        pass
 
 if __name__ == '__main__':
     try:

@@ -31,7 +31,9 @@ def should_include_item(item: Item) -> bool:
 def data_for_section(section_name: str) -> List[Item]:
     assert section_name is not 'Skills', section_name
 
-    items = load(open('data/{0}.yml'.format(section_name)).read())
+    with open('data/{0}.yml'.format(section_name)) as fh:
+        items = load(fh.read())
+
     return [
         item
         for item in items
@@ -40,7 +42,9 @@ def data_for_section(section_name: str) -> List[Item]:
 
 def data_for_skills_section() -> List[Tuple[str, List[Item]]]:
     section_name = 'skills'
-    data = load(open('data/{0}.yml'.format(section_name)).read())
+
+    with open('data/{0}.yml'.format(section_name)) as fh:
+        data = load(fh.read())
 
     return [
         (subsection['type'], subsection['skills'])
