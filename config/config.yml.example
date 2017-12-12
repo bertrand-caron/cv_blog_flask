@@ -28,3 +28,5 @@ google_analytics_tag: |
   
     gtag('config', 'UA-12345678-9');
   </script>
+fork_me_on_github: 'bertrand-caron/cv_blog_flask'
+main_color: '#F09819'

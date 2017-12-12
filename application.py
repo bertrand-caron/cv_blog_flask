@@ -62,5 +62,14 @@ def contact() -> str:
         ),
     )
 
+@application.route('/data')
+def data() -> str:
+    return main_layout(
+        body=render_template(
+            'data.html',
+            config=CONFIG,
+        ),
+    )
+
 if __name__ == "__main__":
     application.run()
