@@ -1,6 +1,7 @@
 # `cv_blog_flask`: A CV/Blog content management system written in Python3 and Flask
 
 [![Build Status](https://travis-ci.org/bertrand-caron/cv_blog_flask.svg?branch=master)](https://travis-ci.org/bertrand-caron/cv_blog_flask)
+[![Coverage Status](https://coveralls.io/repos/github/bertrand-caron/cv_blog_flask/badge.svg?branch=master)](https://coveralls.io/github/bertrand-caron/cv_blog_flask?branch=master)
 
 ## Author: Bertrand Caron
 
