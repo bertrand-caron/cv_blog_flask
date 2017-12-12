@@ -1,4 +1,11 @@
-- description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-  icon: icon-python
-  rating: 5
-  title: Lorem
+-
+  type: 'Computer Languages'
+  skills:
+    - description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+      icon: icon-python
+      rating: 5
+      title: Lorem
+    - description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+      icon: icon-python
+      rating: 1
+      title: Lorem
