@@ -9,6 +9,8 @@ mobile: Lorem ipsum dolor sit amet,
 occupation: Lorem ipsum
 profile: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
   incididunt ut labore et dolore
+address: 'Loreum (Ipsum)'
+citation_name: 'L. Ipsum'
 social:
   email: Loreum@ip.sum
   github: Lorem
