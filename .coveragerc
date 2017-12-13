@@ -1,5 +1,5 @@
 [run]
-omit = /usr/*
+omit = /usr/*, /home/*
 
 [report]
 exclude_lines =
