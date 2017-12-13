@@ -1,8 +1,8 @@
-from markdown import markdown
-from flask import Flask, render_template, url_for, Markup
-from yaml import load
 from typing import List, Any
 from glob import glob
+from markdown import markdown
+from flask import render_template, Markup
+from yaml import load
 
 from helpers.sections import Item, should_include_item
 

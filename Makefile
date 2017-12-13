@@ -63,3 +63,7 @@ coverage: copy_missing_example_files
 	coverage run test.py
 	coverage html
 .PHONY: coverage
+
+pylint:
+	$@ $$(find . -name '*.py')
+.PHONY: pylint

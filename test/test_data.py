@@ -1,4 +1,4 @@
-from os.path import exists, basename, dirname, join
+from os.path import exists, dirname, join
 from glob import glob
 from yaml import load, dump
 

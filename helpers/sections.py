@@ -1,6 +1,6 @@
+from typing import Any, List, Dict, Tuple
 from flask import Markup, render_template, url_for
 from yaml import load
-from typing import Any, List, Dict, Union, Tuple
 
 from helpers.bootstrap import rating_tag, icon_tag
 from helpers.iterables import str_merge
@@ -18,7 +18,15 @@ ITEM_TEMPLATE_FOR = {
     'experience': 'item_experience.html',
 }
 
-ALL_SECTIONS = ['experience', 'education', 'skills', 'publications', 'teaching', 'awards', 'referees']
+ALL_SECTIONS = [
+    'experience',
+    'education',
+    'skills',
+    'publications',
+    'teaching',
+    'awards',
+    'referees',
+]
 
 assert set(ALL_SECTIONS) == set(ITEM_TEMPLATE_FOR), 'ERROR: Missing item templates or sections: {0}'.format(set(ALL_SECTIONS) ^ set(ITEM_TEMPLATE_FOR))
 
@@ -29,7 +37,7 @@ def should_include_item(item: Item) -> bool:
         return True
 
 def data_for_section(section_name: str) -> List[Item]:
-    assert section_name is not 'Skills', section_name
+    assert section_name != 'Skills', section_name
 
     with open('data/{0}.yml'.format(section_name)) as fh:
         items = load(fh.read())

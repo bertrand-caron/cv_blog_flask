@@ -10,7 +10,7 @@ def create_tables() -> None:
 def log_access(request: Any) -> None:
     try:
         CURSOR.execute('INSERT INTO logs (datetime, ip) VALUES (DATETIME("now"), ?)', (request.environ['HTTP_X_REAL_IP'],))
-    except:
+    except Exception:
         pass
 
 if __name__ == '__main__':
@@ -18,8 +18,9 @@ if __name__ == '__main__':
         from geoip import geolite2
         def get_geo(ip_address: str) -> Any:
             return geolite2.lookup(ip_address)
-    except:
-        get_geo = lambda *args, **kwargs: None
+    except Exception:
+        def get_geo(ip_address: str) -> None: #pylint: disable=unused-argument
+            return None
 
     try:
         CURSOR.execute('SELECT * FROM logs')

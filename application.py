@@ -7,7 +7,7 @@ from helpers.bootstrap import icon_tag
 from helpers.db import log_access
 from helpers.config import CONFIG
 
-application = Flask(__name__)
+APPLICATION = Flask(__name__)
 
 def main_layout(body: str) -> str:
     log_access(request)
@@ -15,11 +15,11 @@ def main_layout(body: str) -> str:
         'main.html',
         url_for=url_for,
         config=CONFIG,
-        body = Markup(body),
-        footer = Markup(render_template('footer.html')),
+        body=Markup(body),
+        footer=Markup(render_template('footer.html')),
     )
 
-@application.route('/')
+@APPLICATION.route('/')
 def home() -> str:
     return main_layout(
         render_template(
@@ -35,11 +35,11 @@ def home() -> str:
         ]),
     )
 
-@application.route('/cv')
+@APPLICATION.route('/cv')
 def cv() -> str:
     return ''
 
-@application.route('/blog')
+@APPLICATION.route('/blog')
 def blog() -> str:
     return main_layout(
         body=(
@@ -53,7 +53,7 @@ def blog() -> str:
         ),
     )
 
-@application.route('/contact')
+@APPLICATION.route('/contact')
 def contact() -> str:
     return main_layout(
         body=render_template(
@@ -62,7 +62,7 @@ def contact() -> str:
         ),
     )
 
-@application.route('/data')
+@APPLICATION.route('/data')
 def data() -> str:
     return main_layout(
         body=render_template(
@@ -72,4 +72,4 @@ def data() -> str:
     )
 
 if __name__ == "__main__":
-    application.run()
+    APPLICATION.run()

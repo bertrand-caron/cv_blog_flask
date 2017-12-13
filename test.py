@@ -1,8 +1,7 @@
-from flask import request
-import unittest
 from typing import Any
+import unittest
 
-from application import application, home, cv, blog, contact, data, CONFIG
+from application import APPLICATION, home, cv, blog, contact, data
 
 ROUTES = [home, cv, blog, contact, data]
 
@@ -12,7 +11,7 @@ def validate_answer(answer: Any) -> None:
 
 class TestIntegration(unittest.TestCase):
     def setUp(self) -> None:
-        self.app = application.test_client()
+        self.app = APPLICATION.test_client()
 
     def tearDown(self) -> None:
         pass
