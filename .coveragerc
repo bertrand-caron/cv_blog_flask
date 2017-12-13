@@ -1,5 +1,5 @@
 [run]
-omit = /usr/*, /home/*
+omit = /usr/*, /home/travis/virtualenv/python*
 
 [report]
 exclude_lines =
