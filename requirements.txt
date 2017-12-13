@@ -6,3 +6,4 @@ Jinja2
 pyyaml
 uwsgi
 coverage
+python-coveralls
