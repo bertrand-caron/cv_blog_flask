@@ -7,3 +7,4 @@ pyyaml
 uwsgi
 coverage
 python-coveralls
+pylint

@@ -4,6 +4,8 @@ python:
 install:
   - pip install -r requirements.txt
 # command to run tests
-script: make coverage
+script:
+  - make coverage
+  - make pylint
 after_success: coveralls --ignore-errors
 cache: pip
