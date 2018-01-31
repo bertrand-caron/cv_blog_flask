@@ -4,7 +4,7 @@ import unittest
 from application import APPLICATION, home, cv, blog, contact, data
 from helpers.db import create_tables
 from helpers.bootstrap import icon_tag
-from helpers.sections import img_url_for
+from helpers.sections import img_url_for, should_include_item
 
 ROUTES = [home, cv, blog, contact, data]
 
@@ -38,6 +38,7 @@ class TestIntegration(unittest.TestCase):
         create_tables()
         img_url_for('http://test.com/a.png')
         img_url_for('')
+        should_include_item('')
 
     def test_helpers(self) -> None: # pylint: disable=no-self-use
         icon_tag('')
