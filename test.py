@@ -3,6 +3,8 @@ import unittest
 
 from application import APPLICATION, home, cv, blog, contact, data
 from helpers.db import create_tables
+from helpers.bootstrap import icon_tag
+from helpers.sections import img_url_for
 
 ROUTES = [home, cv, blog, contact, data]
 
@@ -34,6 +36,11 @@ class TestIntegration(unittest.TestCase):
 
     def test_db(self) -> None: # pylint: disable=no-self-use
         create_tables()
+        img_url_for('http://test.com/a.png')
+        img_url_for('')
+
+    def test_helpers(self) -> None: # pylint: disable=no-self-use
+        icon_tag('')
 
     def test_validate_answer_works(self) -> None:
         try:
