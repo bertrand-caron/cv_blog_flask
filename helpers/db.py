@@ -5,7 +5,7 @@ DB_CONN = connect('cv.db', isolation_level=None)
 CURSOR = DB_CONN.cursor()
 
 def create_tables() -> None:
-    CURSOR.execute('CREATE TABLE logs (datetime DATETIME, ip VARCHAR(39))')
+    CURSOR.execute('CREATE TABLE IF NOT EXISTS logs (datetime DATETIME, ip VARCHAR(39))')
 
 def log_access(request: Any) -> None:
     try:

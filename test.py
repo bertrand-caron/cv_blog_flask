@@ -2,6 +2,7 @@ from typing import Any
 import unittest
 
 from application import APPLICATION, home, cv, blog, contact, data
+from helpers.db import create_tables
 
 ROUTES = [home, cv, blog, contact, data]
 
@@ -30,6 +31,9 @@ class TestIntegration(unittest.TestCase):
 
     def test_data(self) -> None:
         validate_answer(self.app.get('/data'))
+
+    def test_db(self) -> None:
+        create_tables()
 
 if __name__ == '__main__':
     unittest.main()
