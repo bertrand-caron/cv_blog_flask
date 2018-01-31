@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Tuple
 from flask import Markup
 
 MFIZZ, FONT_AWESOME = 'icon', 'fa'
@@ -29,11 +29,16 @@ def icon_tag(icon_name: str, icon_type: Optional[str] = None, style: str = '') -
             ),
         )
 
-def rating_tag(rating: int) -> str:
-    assert rating in range(0, 6), rating
+def rating_tag(rating: int, scale: Tuple[int, int] = (0, 5)) -> str:
+    try:
+        min_rating, max_rating = scale
+    except TypeError:
+        raise Exception('Invalid scale: {0}'.format(scale))
+
+    assert rating in range(min_rating, max_rating + 1), (rating, scale)
 
     return ''.join(
         [icon_tag('fa-star')] * rating
         +
-        [icon_tag('fa-star-o')] * (5 - rating)
+        [icon_tag('fa-star-o')] * (max_rating - rating)
     )
