@@ -32,8 +32,15 @@ class TestIntegration(unittest.TestCase):
     def test_data(self) -> None:
         validate_answer(self.app.get('/data'))
 
-    def test_db(self) -> None:
+    def test_db(self) -> None: # pylint: disable=no-self-use
         create_tables()
+
+    def test_validate_answer_works(self) -> None:
+        try:
+            validate_answer(self.app.get('/null'))
+            raise Exception('This should not have been triggered.')
+        except AssertionError:
+            return None
 
 if __name__ == '__main__':
     unittest.main()
