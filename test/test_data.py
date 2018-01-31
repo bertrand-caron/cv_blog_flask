@@ -1,32 +1,32 @@
 from os.path import exists, dirname, join
 from glob import glob
+from typing import Any
 from yaml import load, dump
 
 DATA_DIR = join(dirname(dirname(__file__)), 'data')
 
 CONFIG_DIR = join(dirname(dirname(__file__)), 'config')
 
-def example_yml_file(yml_file):
+def example_yml_file(yml_file: str) -> str:
     return yml_file + '.example'
 
 DEBUG = False
 
-def recursive_assert_object_match(object_1, object_2, debug=DEBUG):
+def recursive_assert_object_match(object_1: Any, object_2: Any, debug: bool = DEBUG) -> Any:
     if debug:
         print()
         print('OBJECTS:\n- {0} (type={1})\n- {2} (type={3})'.format(object_1, type(object_1), object_2, type(object_2)))
 
     if type(object_1) == type(object_2):
         if type(object_1) == type(object_2) == dict:
-
-            def check_same_keys():
+            def check_same_keys() -> bool:
                 if debug:
                     if set(object_1.keys()) != set(object_2.keys()):
                         print('ERROR: MISSING KEYS {0}'.format(set(object_1.keys()) ^ set(object_2.keys())))
 
                 return set(object_1.keys()) == set(object_2.keys())
 
-            def check_same_value_for_key(key):
+            def check_same_value_for_key(key: Any):
                 if debug:
                     if not recursive_assert_object_match(object_1[key], object_2[key]):
                         print('ERROR: DIFFERENT VALUE FOR KEY {0}'.format(key))
@@ -57,7 +57,7 @@ DO_NOT_OBFUSCATE_KEYS = [
 
 LOREUM_IPSUM = ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua' * 10).split()
 
-def recursive_obfuscation(an_object):
+def recursive_obfuscation(an_object: Any) -> Any:
     def raise_unknown_type():
         raise Exception(
             'Unknown type: {0}(type={1})'.format(
@@ -92,6 +92,8 @@ def recursive_obfuscation(an_object):
         else:
             raise_unknown_type()
     elif type(an_object) == bool:
+        return an_object
+    elif type(an_object) == type(None):
         return an_object
     else:
         raise_unknown_type()
