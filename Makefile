@@ -65,5 +65,5 @@ coverage: copy_missing_example_files
 .PHONY: coverage
 
 pylint:
-	$@ $$(find . -name '*.py')
+	$@ $$(find . -name '*.py' -not -path './tasks/*.py')
 .PHONY: pylint

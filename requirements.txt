@@ -8,3 +8,4 @@ uwsgi
 coverage
 python-coveralls
 pylint
+boto
