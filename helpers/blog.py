@@ -1,5 +1,6 @@
 from typing import List, Any
 from glob import glob
+from datetime import datetime
 from markdown import markdown
 from flask import render_template, Markup
 from yaml import load
@@ -10,9 +11,14 @@ def read_post(post_filepath: str) -> str:
     with open(post_filepath) as fh:
         return load(fh.read())
 
-def all_posts() -> List[Item]:
+def all_posts(sorted_on: str = 'date', order: str = 'DESC') -> List[Item]:
+    ORDER_DICT = {
+        'ASC': False,
+        'DESC': True
+    }
+
     post_files = glob('data/posts/*.yml')
-    return list(
+    return sorted(
         filter(
             should_include_item,
             [
@@ -20,6 +26,8 @@ def all_posts() -> List[Item]:
                 for post_file in post_files
             ],
         ),
+        key=lambda item: datetime.strptime(item[sorted_on], '%Y-%m-%d'),
+        reverse=ORDER_DICT[order],
     )
 
 def rendered_all_posts() -> Any:
