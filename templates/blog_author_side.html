@@ -3,7 +3,7 @@
     <a href='/blog'>{{ config['blog']['title'] }}</a>
   </h2>
 
-  <img id="author-img" src="{{ url_for('static', filename='uploads/' + config['img_name']) }}" style='height: 150px; border-color: #428bca;'>
+  <img id="author-img" src="{{ url_for('static', filename='uploads/' + config['img_name']) }}" style="height: 150px; border-color: {{ config['main_color'] }};">
 
   <h2>
     {{ config['first_name'] + ' ' + config['last_name'] }}

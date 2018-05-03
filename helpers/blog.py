@@ -11,7 +11,7 @@ def read_post(post_filepath: str) -> str:
     with open(post_filepath) as fh:
         return load(fh.read())
 
-def all_posts(sorted_on: str = 'date', order: str = 'DESC') -> List[Item]:
+def all_posts(order: str = 'DESC') -> List[Item]:
     ORDER_DICT = {
         'ASC': False,
         'DESC': True
@@ -26,8 +26,17 @@ def all_posts(sorted_on: str = 'date', order: str = 'DESC') -> List[Item]:
                 for post_file in post_files
             ],
         ),
-        key=lambda item: datetime.strptime(item[sorted_on], '%Y-%m-%d'),
+        key=datetime_for,
         reverse=ORDER_DICT[order],
+    )
+
+def datetime_for(post: Any) -> 'Datetime':
+    return datetime.strptime(post['date'], '%Y-%m-%d')
+
+def date_str_for(post: Any) -> str:
+    return datetime.strftime(
+        datetime_for(post),
+        '%d %b %Y',
     )
 
 def rendered_all_posts() -> Any:
@@ -38,7 +47,12 @@ def rendered_all_posts() -> Any:
         posts=Markup(
             ''.join(
                 [
-                    render_template('blog_post.html', post=post, markdown=markdown)
+                    render_template(
+                        'blog_post.html',
+                        post=post,
+                        markdown=markdown,
+                        date_str_for=date_str_for,
+                    )
                     for post in all_posts()
                 ]
             ),
