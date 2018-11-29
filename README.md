@@ -33,3 +33,17 @@ I used `uwsgi` as my gateway interface, I included the UWSGI config I used (`uws
 * `helpers/`: Contains the rest of the code
 * `config/`: Contains the config
     * `config/config.yml`: Contains the main config
+
+# FAQ
+
+## I don't have a web server, but have an Amazon Web Service (AWS) account, can I host my CV on an S3 bucket?
+
+You sure can!
+First, you'll need to create an S3 bucket, which should match the content of the `BUCKET_NAME` variable in `tasks/S3_manager.py`.
+Then, configure your S3 bucket for Static Website Hosting (see AWS docs).
+Make sure that the index document you choose matches the `` variable in `tasks/S3_manager.py` (I recommend using `cv.html`).
+Finally, give public read access to your bucket!
+
+Then, set your `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variable to allow authentification.
+Finally, run `python3 tasks/S3_manager.py --upload` to upload all the static files to your S3 bucket,
+as well as render a static version of your CV, and upload that HTML document to become the index of your S3 bucket website.
