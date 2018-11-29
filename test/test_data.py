@@ -72,16 +72,13 @@ def recursive_obfuscation(an_object: Any) -> Any:
             [an_object[0]], # Keep only the first object of each list, for the sake of concision
         ))
     elif type(an_object) == dict:
-        return dict(
-            [
-                (
-                    key,
-                    value if key in DO_NOT_OBFUSCATE_KEYS else recursive_obfuscation(value),
-                )
-                for (key, value)
-                in list(an_object.items())
-            ],
-        )
+        return {
+            (
+                key,
+                value if key in DO_NOT_OBFUSCATE_KEYS else recursive_obfuscation(value),
+            )
+            for (key, value) in an_object.items()
+        }
     elif type(an_object) in (str, int, float):
         if type(an_object) == str:
             return ' '.join([loreum_ipsum_word for (word, loreum_ipsum_word) in zip(an_object.split(), LOREUM_IPSUM)])
