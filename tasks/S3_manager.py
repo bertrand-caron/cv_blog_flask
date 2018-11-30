@@ -15,26 +15,33 @@ BUCKET_NAME = 'bcaron'
 # Should match the one in your S3 bucket config
 INDEX_FILENAME = 'cv.html'
 
+ROUTES = ['cv', 'contact']
+
 IMAGE_DIR = join(dirname(dirname(abspath(__file__))), 'static', 'uploads')
 
 IMAGE_EXTENSIONS = {'.jpg', '.png', '.jpeg', '.pdf'}
 
 def upload(bucket: Bucket) -> None:
-    def upload_static_cv() -> None:
+    def upload_static_page(page_name: str) -> None:
         client = APPLICATION.test_client()
-        response = client.get('/')
+        response = client.get('/{page_name}'.format(page_name=page_name))
 
-        with open(INDEX_FILENAME, 'wb') as fh:
+        page_filename = '{page_name}.html'.format(page_name=page_name) if page_name == INDEX_FILENAME.split('.')[0] else page_name
+
+        with open(page_filename, 'wb') as fh:
             fh.write(response.get_data())
 
         k = Key(bucket)
-        k.key = INDEX_FILENAME
+        k.key = page_filename
         # Setting proper encoding (UTF-8) to cv.html
         k.set_metadata('Content-Type', 'text/html; charset=utf-8')
-        k.set_contents_from_filename(INDEX_FILENAME)
+        k.set_contents_from_filename(page_filename)
         k.set_acl('public-read')
 
-    upload_static_cv()
+    [
+        upload_static_page(route)
+        for route in ROUTES
+    ]
 
     # Upload all static assets
     for (root, subdirs, files) in walk('static'):

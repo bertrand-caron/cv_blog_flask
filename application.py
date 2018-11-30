@@ -37,7 +37,7 @@ def home() -> str:
 
 @APPLICATION.route('/cv')
 def cv() -> str:
-    return ''
+    return home()
 
 @APPLICATION.route('/blog')
 def blog() -> str:
