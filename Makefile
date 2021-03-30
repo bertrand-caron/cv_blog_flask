@@ -52,7 +52,7 @@ errors:
 .PHONY: errors
 
 pip: requirements.txt 
-	$(PIP_EXEC) install -r $< --user
+	$(PIP_EXEC) install -r $<
 .PHONY: pip
 
 certs:

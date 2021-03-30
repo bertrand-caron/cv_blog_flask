@@ -21,7 +21,7 @@ IMAGE_EXTENSIONS = {'.jpg', '.png', '.jpeg', '.pdf'}
 
 S3_CLIENT = client('s3')#, region="ap-southeast-2")
 
-def upload(bucket: str) -> None:
+def upload(bucket: str, dry_run: bool = False) -> None:
     def upload_static_page(page_name: str) -> None:
         client = APPLICATION.test_client()
         response = client.get('/{page_name}'.format(page_name=page_name))
@@ -39,11 +39,14 @@ def upload(bucket: str) -> None:
         for route in ROUTES
     ]
 
+    exit()
     # Upload all static assets (with public-read)
     for (root, subdirs, files) in walk('static'):
         for _file in files:
             filename = join(root, _file)
-            S3_CLIENT.upload_file(filename, bucket, filename, ExtraArgs={'ACL': 'public-read'})
+            if not dry_run:
+                print('Uploading {0} to {1}'.format(filename, bucket))
+                S3_CLIENT.upload_file(filename, bucket, filename, ExtraArgs={'ACL': 'public-read'})
 
     # Upload data and config (without public-read)
     for (root, subdirs, files) in chain(walk('data'), walk('config')):
@@ -56,14 +59,16 @@ def upload(bucket: str) -> None:
             if '/.git/' in filename: continue
 
             print('Uploading {0} to {1}'.format(filename, bucket))
-            S3_CLIENT.upload_file(filename, bucket, filename)
+            if not dry_run:
+                S3_CLIENT.upload_file(filename, bucket, filename)
 
-def download(bucket: str) -> None:
+def download(bucket: str, dry_run: bool = False) -> None:
     for k in S3_CLIENT.list_objects_v2(Bucket=BUCKET_NAME)['Contents']:
         filepath = k['Key']
         if not exists(filepath):
             print('Will download {0}'.format(filepath))
-            S3_CLIENT.download_file(BUCKET_NAME, k['Key'], filepath)
+            if not dry_run:
+                S3_CLIENT.download_file(BUCKET_NAME, k['Key'], filepath)
         else:
             print('No need to download {0} (already exists, will not overwrite)'.format(k['Key']))
 
@@ -72,6 +77,7 @@ def parse_args() -> Namespace:
 
     parser.add_argument('--upload', action='store_true')
     parser.add_argument('--download', action='store_true')
+    parser.add_argument('--dry-run', action='store_true')
 
     return parser.parse_args()
 
@@ -84,7 +90,7 @@ if __name__ == '__main__':
     print('all_keys', [k['Key'] for k in response['Contents']])
 
     if args.upload:
-        upload(BUCKET_NAME)
+        upload(BUCKET_NAME, dry_run=args.dry_run)
 
     if args.download:
-        download(BUCKET_NAME)
+        download(BUCKET_NAME, dry_run=args.dry_run)

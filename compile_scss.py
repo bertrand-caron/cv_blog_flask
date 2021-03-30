@@ -4,7 +4,7 @@ from scss import Compiler
 def compile_scss_file(filename: str) -> None:
     assert '.scss' in filename, filename
 
-    with open(filename.replace('.scss', ''), 'wb') as fh:
+    with open(filename.replace('.scss', ''), 'wt') as fh:
         fh.write(
             Compiler().compile_string(open('static/style.css.scss', 'rb').read()),
         )
