@@ -1,6 +1,10 @@
 name: Build and test
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
 
 jobs:
   build_and_test:
@@ -19,3 +23,6 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         make pylint
+    - name: Run code coverage
+      run: |
+        make coverage
