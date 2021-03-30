@@ -3,14 +3,11 @@ from os.path import basename, dirname, join, abspath, exists
 from glob import glob
 from argparse import ArgumentParser, Namespace
 
-from boto.s3 import connect_to_region
-from boto.s3.connection import S3Connection, Location
-from boto.s3.key import Key
-from boto.s3.bucket import Bucket
+from boto3 import client
 
 from application import APPLICATION
 
-BUCKET_NAME = 'bcaron'
+BUCKET_NAME = 'cv.bcaron.me'
 
 # Should match the one in your S3 bucket config
 INDEX_FILENAME = 'cv.html'
@@ -21,7 +18,9 @@ IMAGE_DIR = join(dirname(dirname(abspath(__file__))), 'static', 'uploads')
 
 IMAGE_EXTENSIONS = {'.jpg', '.png', '.jpeg', '.pdf'}
 
-def upload(bucket: Bucket) -> None:
+S3_CLIENT = client('s3')#, region="ap-southeast-2")
+
+def upload(bucket: str) -> None:
     def upload_static_page(page_name: str) -> None:
         client = APPLICATION.test_client()
         response = client.get('/{page_name}'.format(page_name=page_name))
@@ -31,12 +30,8 @@ def upload(bucket: Bucket) -> None:
         with open(page_filename, 'wb') as fh:
             fh.write(response.get_data())
 
-        k = Key(bucket)
-        k.key = page_filename
-        # Setting proper encoding (UTF-8) to cv.html
-        k.set_metadata('Content-Type', 'text/html; charset=utf-8')
-        k.set_contents_from_filename(page_filename)
-        k.set_acl('public-read')
+        print('Uploading {0} to ${1}'.format(page_filename, page_filename))
+        S3_CLIENT.upload_file(page_filename, bucket, page_filename, ExtraArgs={'ACL': 'public-read', 'ContentType': 'text/html; charset=utf-8'})
 
     [
         upload_static_page(route)
@@ -46,13 +41,10 @@ def upload(bucket: Bucket) -> None:
     # Upload all static assets
     for (root, subdirs, files) in walk('static'):
         for _file in files:
-            k = Key(bucket)
             filename = join(root, _file)
-            k.key = filename
-            k.set_contents_from_filename(filename)
-            k.set_acl('public-read')
+            S3_CLIENT.upload_file(filename, bucket, filename, ExtraArgs={'ACL': 'public-read'})
 
-def download(bucket: Bucket) -> None:
+def download(bucket: str) -> None:
     for k in bucket.list():
         if any(k.key.endswith(extension) for extension in IMAGE_EXTENSIONS):
             image_filepath = join(IMAGE_DIR, k.key)
@@ -76,14 +68,12 @@ if __name__ == '__main__':
     args = parse_args()
 
     # Gets credential from AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
-    conn = connect_to_region(Location.APSoutheast2)
-    bucket = conn.get_bucket('bcaron')
-    all_keys = [k.key for k in bucket.list()]
+    response = S3_CLIENT.list_objects_v2(Bucket=BUCKET_NAME) # TODO: Handle continuation here
 
-    print('all_keys', all_keys)
+    print('all_keys', [k['Key'] for k in response['Contents']])
 
     if args.upload:
-        upload(bucket)
+        upload(BUCKET_NAME)
 
     if args.download:
-        download(bucket)
+        download(BUCKET_NAME)
