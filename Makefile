@@ -48,7 +48,7 @@ uwsgi:
 .PHONY: uwsgi
 
 errors:
-	pylint -E *.py
+	PYTHONPATH=. pylint -E *.py
 .PHONY: errors
 
 pip: requirements.txt 
@@ -67,3 +67,7 @@ coverage: copy_missing_example_files
 pylint:
 	PYTHONPATH=. $@ $$(find . -name '*.py' -not -path './tasks/*.py')
 .PHONY: pylint
+
+mypy:
+	mypy -m helpers -m test -m application --ignore-missing
+.PHONY: mypy

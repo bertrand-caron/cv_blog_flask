@@ -5,14 +5,14 @@ from markdown import markdown
 from flask import render_template, Markup
 from yaml import load
 
-from helpers.sections import Item, should_include_item
+from helpers.sections import should_include_item
 from helpers.config import CONFIG
 
 def read_post(post_filepath: str) -> str:
     with open(post_filepath) as fh:
         return load(fh.read())
 
-def all_posts(order: str = 'DESC') -> List[Item]:
+def all_posts(order: str = 'DESC') -> List[Any]:
     ORDER_DICT = {
         'ASC': False,
         'DESC': True
@@ -31,7 +31,7 @@ def all_posts(order: str = 'DESC') -> List[Item]:
         reverse=ORDER_DICT[order],
     )
 
-def datetime_for(post: Any) -> 'Datetime':
+def datetime_for(post: Any) -> datetime:
     return datetime.strptime(post['date'], '%Y-%m-%d')
 
 def date_str_for(post: Any) -> str:

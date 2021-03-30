@@ -1,4 +1,4 @@
-from typing import Any, List, Dict, Tuple
+from typing import Any, List, Dict, Tuple, Union
 from flask import Markup, render_template, url_for
 from yaml import load
 
@@ -32,7 +32,7 @@ ALL_SECTIONS = [
 
 assert set(ALL_SECTIONS) == set(ITEM_TEMPLATE_FOR), 'ERROR: Missing item templates or sections: {0}'.format(set(ALL_SECTIONS) ^ set(ITEM_TEMPLATE_FOR))
 
-def should_include_item(item: Item) -> bool:
+def should_include_item(item: Union[Item, Any]) -> bool:
     if isinstance(item, dict):
         return ('publish' not in item) or ('publish' in item and bool(item['publish']))
     else:
@@ -62,17 +62,19 @@ def data_for_skills_section() -> List[Tuple[str, List[Item]]]:
     ]
 
 def rendered_data_for_section(section_name: str) -> Markup:
-    render_item = lambda item: render_template(
-        ITEM_TEMPLATE_FOR[section_name],
-        item=item,
-        rating_tag=rating_tag,
-        icon_tag=icon_tag,
-        img_url_for=img_url_for,
-        underline_main_author=lambda s: s.replace(
-            CONFIG['citation_name'],
-            '<span style="text-decoration: underline">' + CONFIG['citation_name'] + '</span>',
-        ),
-    )
+    def render_item(item: Any) -> str:
+        data = render_template(
+            ITEM_TEMPLATE_FOR[section_name],
+            item=item,
+            rating_tag=rating_tag,
+            icon_tag=icon_tag,
+            img_url_for=img_url_for,
+            underline_main_author=lambda s: s.replace(
+                CONFIG['citation_name'],
+                '<span style="text-decoration: underline">' + CONFIG['citation_name'] + '</span>',
+            ),
+        )
+        return data
 
     if section_name in ['skills']:
         return Markup(
