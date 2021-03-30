@@ -39,7 +39,6 @@ def upload(bucket: str, dry_run: bool = False) -> None:
         for route in ROUTES
     ]
 
-    exit()
     # Upload all static assets (with public-read)
     for (root, subdirs, files) in walk('static'):
         for _file in files:
@@ -48,8 +47,8 @@ def upload(bucket: str, dry_run: bool = False) -> None:
             # Exclude the .gitignore file
             if _file == '.gitignore': continue
 
+            print('Uploading {0} to {1}'.format(filename, bucket))
             if not dry_run:
-                print('Uploading {0} to {1}'.format(filename, bucket))
                 S3_CLIENT.upload_file(filename, bucket, filename, ExtraArgs={'ACL': 'public-read'})
 
     # Upload data and config (without public-read)
