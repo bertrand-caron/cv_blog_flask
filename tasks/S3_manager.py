@@ -2,6 +2,7 @@ from os import walk
 from os.path import basename, dirname, join, abspath, exists
 from glob import glob
 from argparse import ArgumentParser, Namespace
+from itertools import chain
 
 from boto3 import client
 
@@ -38,23 +39,33 @@ def upload(bucket: str) -> None:
         for route in ROUTES
     ]
 
-    # Upload all static assets
+    # Upload all static assets (with public-read)
     for (root, subdirs, files) in walk('static'):
         for _file in files:
             filename = join(root, _file)
             S3_CLIENT.upload_file(filename, bucket, filename, ExtraArgs={'ACL': 'public-read'})
 
+    # Upload data and config (without public-read)
+    for (root, subdirs, files) in chain(walk('data'), walk('config')):
+        for _file in files:
+            filename = join(root, _file)
+
+            # Do not upload example files
+            if _file.endswith('.example'): continue
+            # Do not upload git folders
+            if '/.git/' in filename: continue
+
+            print('Uploading {0} to {1}'.format(filename, bucket))
+            S3_CLIENT.upload_file(filename, bucket, filename)
+
 def download(bucket: str) -> None:
-    for k in bucket.list():
-        if any(k.key.endswith(extension) for extension in IMAGE_EXTENSIONS):
-            image_filepath = join(IMAGE_DIR, k.key)
-            if not exists(image_filepath):
-                print('Will download {0}'.format(k.key))
-                k.get_contents_to_filename(image_filepath)
-            else:
-                print('No need to download {0}'.format(k.key))
+    for k in S3_CLIENT.list_objects_v2(Bucket=BUCKET_NAME)['Contents']:
+        filepath = k['Key']
+        if not exists(filepath):
+            print('Will download {0}'.format(filepath))
+            S3_CLIENT.download_file(BUCKET_NAME, k['Key'], filepath)
         else:
-            print('No an image: {0}'.format(k.key))
+            print('No need to download {0} (already exists, will not overwrite)'.format(k['Key']))
 
 def parse_args() -> Namespace:
     parser = ArgumentParser()

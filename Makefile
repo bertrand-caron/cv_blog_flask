@@ -52,7 +52,7 @@ errors:
 .PHONY: errors
 
 pip: requirements.txt 
-	$(PIP_EXEC) install -r $<
+	$(PIP_EXEC) install -r $< --user
 .PHONY: pip
 
 certs:
@@ -69,5 +69,5 @@ pylint:
 .PHONY: pylint
 
 mypy:
-	mypy -m helpers -m test -m application --ignore-missing
+	mypy -m helpers -m test -m application -m tasks --ignore-missing
 .PHONY: mypy
