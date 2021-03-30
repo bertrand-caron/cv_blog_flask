@@ -19,7 +19,7 @@ if __name__ == '__main__':
         def get_geo(ip_address: str) -> Any:
             return geolite2.lookup(ip_address)
     except Exception:
-        def get_geo(ip_address: str) -> None: #pylint: disable=unused-argument
+        def get_geo(ip_address: str) -> Any: #pylint: disable=unused-argument
             return None
 
     try:

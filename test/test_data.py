@@ -36,11 +36,9 @@ def recursive_assert_object_match(object_1: Any, object_2: Any, debug: bool = DE
                 check_same_keys()
                 and
                 all(
-                    [
-                        check_same_value_for_key(key)
-                        for key in
-                        set(object_1.keys()) & set(object_2.keys())
-                    ]
+                    check_same_value_for_key(key)
+                    for key in
+                    set(object_1.keys()) & set(object_2.keys())
                 )
             )
         elif type(object_1) == type(object_2) == list:

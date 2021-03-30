@@ -1,5 +1,5 @@
 Flask
-sass
+pyScss
 Markdown
 python-geoip-python3
 Jinja2
@@ -9,3 +9,4 @@ coverage
 python-coveralls
 pylint
 boto3
+mypy
