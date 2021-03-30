@@ -11,6 +11,7 @@ Item = Dict[Any, Any]
 ITEM_TEMPLATE_FOR = {
     'education': 'item.html',
     'skills': 'item_skill.html',
+    'presentations': 'item_presentation.html',
     'publications': 'item_publication.html',
     'teaching': 'item.html',
     'awards': 'item_award.html',
@@ -22,6 +23,7 @@ ALL_SECTIONS = [
     'experience',
     'education',
     'skills',
+    'presentations',
     'publications',
     'teaching',
     'awards',
