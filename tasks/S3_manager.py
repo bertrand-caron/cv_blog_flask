@@ -44,6 +44,10 @@ def upload(bucket: str, dry_run: bool = False) -> None:
     for (root, subdirs, files) in walk('static'):
         for _file in files:
             filename = join(root, _file)
+
+            # Exclude the .gitignore file
+            if _file == '.gitignore': continue
+
             if not dry_run:
                 print('Uploading {0} to {1}'.format(filename, bucket))
                 S3_CLIENT.upload_file(filename, bucket, filename, ExtraArgs={'ACL': 'public-read'})

@@ -6,3 +6,5 @@ data_dump*
 .coverage
 htmlcov/
 cv.html
+contact
+.DS_Store
