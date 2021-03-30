@@ -6,6 +6,7 @@ from flask import render_template, Markup
 from yaml import load
 
 from helpers.sections import Item, should_include_item
+from helpers.config import CONFIG
 
 def read_post(post_filepath: str) -> str:
     with open(post_filepath) as fh:
@@ -40,8 +41,6 @@ def date_str_for(post: Any) -> str:
     )
 
 def rendered_all_posts() -> Any:
-    from application import CONFIG
-
     return render_template(
         'blog_body.html',
         posts=Markup(

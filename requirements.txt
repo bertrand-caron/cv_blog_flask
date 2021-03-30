@@ -7,5 +7,5 @@ pyyaml
 uwsgi
 coverage
 python-coveralls
-pylint===1.7.5
+pylint
 boto3

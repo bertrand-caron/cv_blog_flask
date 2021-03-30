@@ -103,7 +103,7 @@ def check_example_yml_files():
         try:
             example_yml_content = recursive_obfuscation(yml_content)
         except Exception as e:
-            raise Exception('ERROR in {0}: {1}'.format(yml_file, e))
+            raise Exception('ERROR in {0}: {1}'.format(yml_file, e)) from e
 
         assert recursive_assert_object_match(yml_content, example_yml_content, debug=True)
 
