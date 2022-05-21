@@ -8,7 +8,7 @@ PIP_EXEC = pip3
 
 PYTHONPATH_VAR = PYTHONPATH=$(PYTHONPATH):$(shell pwd)
 
-FLASK_EXEC = $(PYTHONPATH_VAR) /usr/local/bin/flask
+FLASK_EXEC = $(PYTHONPATH_VAR) /opt/homebrew/bin/flask
 
 refresh: static/style.css
 	sudo service cv_flask restart
