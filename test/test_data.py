@@ -1,7 +1,7 @@
 from os.path import exists, dirname, join
 from glob import glob
 from typing import Any
-from yaml import load, dump
+from yaml import safe_load, dump
 
 DATA_DIR = join(dirname(dirname(__file__)), 'data')
 
@@ -96,7 +96,7 @@ def recursive_obfuscation(an_object: Any) -> Any:
 def check_example_yml_files():
     for yml_file in glob(join(DATA_DIR, '*.yml')) + glob(join(DATA_DIR, 'posts', '*.yml')) + [join(CONFIG_DIR, 'config.yml')]:
 
-        yml_content = load(open(yml_file).read())
+        yml_content = safe_load(open(yml_file).read())
 
         try:
             example_yml_content = recursive_obfuscation(yml_content)

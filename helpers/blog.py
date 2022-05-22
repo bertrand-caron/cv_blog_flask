@@ -3,14 +3,14 @@ from glob import glob
 from datetime import datetime
 from markdown import markdown
 from flask import render_template, Markup
-from yaml import load
+from yaml import safe_load
 
 from helpers.sections import should_include_item
 from helpers.config import CONFIG
 
 def read_post(post_filepath: str) -> str:
     with open(post_filepath) as fh:
-        return load(fh.read())
+        return safe_load(fh.read())
 
 def all_posts(order: str = 'DESC') -> List[Any]:
     ORDER_DICT = {

@@ -1,6 +1,6 @@
 from typing import Any, List, Dict, Tuple, Union
 from flask import Markup, render_template, url_for
-from yaml import load
+from yaml import safe_load
 
 from helpers.bootstrap import rating_tag, icon_tag
 from helpers.iterables import str_merge
@@ -42,7 +42,7 @@ def data_for_section(section_name: str) -> List[Item]:
     assert section_name != 'Skills', section_name
 
     with open('data/{0}.yml'.format(section_name)) as fh:
-        items = load(fh.read())
+        items = safe_load(fh.read())
 
     return [
         item
@@ -54,7 +54,7 @@ def data_for_skills_section() -> List[Tuple[str, List[Item]]]:
     section_name = 'skills'
 
     with open('data/{0}.yml'.format(section_name)) as fh:
-        data = load(fh.read())
+        data = safe_load(fh.read())
 
     return [
         (subsection['type'], subsection['skills'])
