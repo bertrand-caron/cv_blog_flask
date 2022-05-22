@@ -20,9 +20,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         make pip
-    - name: Analysing the code with pylint
-      run: |
-        make pylint
+    # - name: Analysing the code with pylint
+    #   run: |
+    #     make pylint
     - name: Run code coverage
       run: |
         make coverage

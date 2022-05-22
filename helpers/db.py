@@ -24,6 +24,6 @@ if __name__ == '__main__':
 
     try:
         CURSOR.execute('SELECT * FROM logs')
-        print('\n'.join(['{0},{1}'.format(datetime, get_geo(ip)) for (datetime, ip) in CURSOR.fetchall()]))
+        print('\n'.join([f'{datetime},{get_geo(ip)}' for (datetime, ip) in CURSOR.fetchall()]))
     except OperationalError:
         create_tables()
