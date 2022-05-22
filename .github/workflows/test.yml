@@ -26,6 +26,6 @@ jobs:
     - name: Run code coverage
       run: |
         make coverage
-    - name: Run type checks
-      run: |
-        make mypy
+    # - name: Run type checks
+    #   run: |
+    #     make mypy
