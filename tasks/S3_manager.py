@@ -31,7 +31,7 @@ def upload(bucket: str, dry_run: bool = False) -> None:
         with open(page_filename, 'wb') as fh:
             fh.write(response.get_data())
 
-        print('Uploading {0} to ${1}'.format(page_filename, page_filename))
+        print('Uploading {0} to {1}'.format(page_filename, page_filename))
         S3_CLIENT.upload_file(page_filename, bucket, page_filename, ExtraArgs={'ACL': 'public-read', 'ContentType': 'text/html; charset=utf-8'})
 
     [

@@ -15,7 +15,7 @@ refresh: static/style.css
 .PHONY: refresh
 
 serve: static/style.css copy_missing_example_files data_dump.tar.gz
-	sudo FLASK_APP=application.py $(FLASK_EXEC) run --host=0.0.0.0 --port 80
+	FLASK_APP=application.py $(FLASK_EXEC) run --host=0.0.0.0 --port 8080
 .PHONY: serve
 
 static/style.css: static/style.css.scss
@@ -71,3 +71,7 @@ pylint:
 mypy:
 	mypy -m helpers -m test -m application -m tasks --ignore-missing
 .PHONY: mypy
+
+upload:
+	PYTHONPATH="./:${PYTHONPATH}" python3 tasks/S3_manager.py --upload
+.PHONE: upload
